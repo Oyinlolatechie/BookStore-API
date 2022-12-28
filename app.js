@@ -2,6 +2,9 @@
 const express = require('express')
 require('dotenv').config()
 const bookRouter = require("./routes/bookRoute")
+const rateLimit = require('./middleware/express-rate-limit')
+
+
 
 const PORT = process.env.PORT
 const app = express()
@@ -13,6 +16,8 @@ const { urlencoded } = require('express')
 app.use(express.json())
 app.use(urlencoded({extended :true }))
 
+
+app.use(rateLimit)
 app.use("/Books", bookRouter)
 db.connectToMongoDB()
 
